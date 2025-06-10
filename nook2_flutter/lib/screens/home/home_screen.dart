@@ -45,6 +45,11 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
 
+          // Gap between header and hero carousel
+          SliverToBoxAdapter(
+            child: SizedBox(height: 16),
+          ),
+
           // Hero Section Carousel
           _buildHeroCarousel(context),
 
@@ -196,9 +201,9 @@ class HomeScreen extends StatelessWidget {
                       // TODO: Navigate to share box selection
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: colorScheme.secondary,
-                      foregroundColor: colorScheme.onSecondary,
-                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      backgroundColor: colorScheme.primary,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -206,7 +211,7 @@ class HomeScreen extends StatelessWidget {
                     child: Text(
                       'Order Share Box',
                       style: theme.textTheme.titleMedium?.copyWith(
-                        color: colorScheme.onSecondary,
+                        color: Colors.white,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -587,16 +592,16 @@ class HomeScreen extends StatelessWidget {
                       // TODO: Navigate to specific buffet selection
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: color,
+                      backgroundColor: colorScheme.primary,
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                     child: Text(
                       'Order $title',
-                      style: theme.textTheme.titleSmall?.copyWith(
+                      style: theme.textTheme.titleMedium?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                       ),
@@ -693,26 +698,6 @@ class _HeroCarouselWidgetState extends State<_HeroCarouselWidget> {
               ),
             );
           }),
-        ),
-        const SizedBox(height: 8),
-
-        // Scroll hint with icon
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.swipe,
-              size: 16,
-              color: colorScheme.onSurface.withValues(alpha: 0.6),
-            ),
-            const SizedBox(width: 4),
-            Text(
-              'Swipe to see more buffet photos',
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: colorScheme.onSurface.withValues(alpha: 0.6),
-              ),
-            ),
-          ],
         ),
       ],
     );
