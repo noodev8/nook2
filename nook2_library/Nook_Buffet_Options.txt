@@ -1,4 +1,47 @@
-Buffet 1
+<Share Box>
+Daily mix for 1 -4 people
+- Traditional
+- Vegiterian
+
+- Mixed Sandwiches
+- Crisps
+- Picky Bits
+- Pork Pie, Quiche - Daily box
+
+- Buffet option only available for 5+ guests
+</Share Box>
+
+
+<Buffet>
+Available for 5 or more people. Can mix any of the 3 options as long as the total checkout covers 5+ people
+
+3 Options
+- Classic
+- Enhanced
+- Deluxe
+
+List each item
+Customer can choose ro remove any (must have min 1 item)
+Each group can be labelled to a different department. Probably by using notes with the item in the order
+</Buffet>
+
+The Nook of Welshpool
+
+Collection
+Delivery
+
+All recyclable packaging
+Fresh ingredients
+
+
+
+- Pictures
+Classic Buffet
+Enhanced Buffet
+Deluxe Buffet
+
+
+<Classic Buffet>
 £9.90 per head
 
 Sandwiches
@@ -17,23 +60,33 @@ Pork Pies
 Scotch Eggs
 Tortillas/Dips
 Assortment of Cakes
+</Classic Buffet>
 
-Buffet 2
+<Enhanced Buffet>
 £10.90 per head
-Everything included in Buffet 1 plus
+Everything included in Stabdard Buffet plus
 
 Sandwiches
 Coronation Chicken
+</Enhanced Buffet>
 
-Sides
+
+<Sides for Classic and Enhanced>
 Vegetable sticks & Dips
 Cheese / Pineaple / Grapes
 Bread Sticks
 Pickles
 Coleslaw
+</Sides for Classic and Enhanced>
 
-The Delux Buffet
+
+
+<Deluxe Buffet>
 £13.90 per head
+
+- Mixed (75% Sandwiches)
+- Sandwiches
+- Wraps
 
 Sandwiches
 Ham & Mustard
@@ -65,5 +118,6 @@ Avocado
 Cheese / Chives
 Hummus
 Breadsticks
+</Deluxe Buffet>
 
 
