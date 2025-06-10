@@ -56,6 +56,11 @@ class BuffetImagePlaceholder extends StatelessWidget {
         icon = Icons.group;
         iconColor = const Color(0xFF1976D2);
         break;
+      case 'hero':
+        backgroundColor = const Color(0xFFF5F5F5);
+        icon = Icons.restaurant_menu;
+        iconColor = const Color(0xFF424242);
+        break;
       default:
         backgroundColor = colorScheme.surface;
         icon = Icons.fastfood;
@@ -81,6 +86,7 @@ class BuffetImagePlaceholder extends StatelessWidget {
                 width: width,
                 height: height,
                 fit: BoxFit.cover,
+                semanticLabel: '${buffetType.replaceAll('_', ' ')} buffet image',
                 errorBuilder: (context, error, stackTrace) {
                   return _buildPlaceholderContent(icon, iconColor);
                 },
@@ -210,6 +216,7 @@ class BuffetHeroImage extends StatelessWidget {
                 width: width,
                 height: height,
                 fit: BoxFit.cover,
+                semanticLabel: '${buffetType.replaceAll('_', ' ')} hero image',
                 errorBuilder: (context, error, stackTrace) {
                   return _buildHeroPlaceholderContent(theme, icon, gradientColors[0]);
                 },

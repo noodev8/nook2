@@ -35,8 +35,8 @@ class HomeScreen extends StatelessWidget {
             foregroundColor: colorScheme.onPrimary,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(
-                AppConfig.appName,
-                style: theme.textTheme.headlineMedium?.copyWith(
+                AppConfig.appFullName,
+                style: theme.textTheme.titleLarge?.copyWith(
                   color: colorScheme.onPrimary,
                   fontWeight: FontWeight.bold,
                 ),
@@ -45,36 +45,49 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
 
-          // Main content
+          // Hero Section Carousel
+          _buildHeroCarousel(context),
+
+          // Share Box Section
           SliverToBoxAdapter(
             child: Padding(
               padding: AppSpacing.screenPadding,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Hero Section
-                  _buildHeroSection(context),
-                  const SizedBox(height: 32),
-
-                  // Share Box Section
                   _buildShareBoxSection(context),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 24),
 
-                  // Buffet Options Section
-                  _buildBuffetOptionsSection(context),
-                  const SizedBox(height: 32),
-
-                  // Business Highlights
-                  _buildBusinessHighlights(context),
-                  const SizedBox(height: 32),
-
-                  // Call to Action
-                  _buildCallToAction(context),
-                  const SizedBox(height: 32),
+                  // Section Divider
+                  Divider(
+                    height: 1,
+                    thickness: 1,
+                    color: Theme.of(context).dividerColor,
+                  ),
+                  const SizedBox(height: 24),
                 ],
               ),
             ),
           ),
+
+          // Buffet Options Grid
+          _buildBuffetOptionsGrid(context),
+
+          // Business Highlights
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: AppSpacing.screenPadding,
+              child: Column(
+                children: [
+                  const SizedBox(height: 24),
+                  _buildBusinessHighlights(context),
+                  const SizedBox(height: 24),
+                ],
+              ),
+            ),
+          ),
+
+
         ],
       ),
 
@@ -83,60 +96,9 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildHeroSection(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-
-    return Container(
-      width: double.infinity,
-      height: 200,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            colorScheme.primary,
-            colorScheme.primary.withValues(alpha: 0.8),
-          ],
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: colorScheme.primary.withValues(alpha: 0.3),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Welcome to',
-              style: theme.textTheme.titleLarge?.copyWith(
-                color: colorScheme.onPrimary.withValues(alpha: 0.9),
-              ),
-            ),
-            Text(
-              AppConfig.appFullName,
-              style: theme.textTheme.displayMedium?.copyWith(
-                color: colorScheme.onPrimary,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              AppConfig.tagline,
-              style: theme.textTheme.titleMedium?.copyWith(
-                color: colorScheme.onPrimary.withValues(alpha: 0.9),
-              ),
-            ),
-          ],
-        ),
-      ),
+  Widget _buildHeroCarousel(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: _HeroCarouselWidget(),
     );
   }
 
@@ -159,7 +121,7 @@ class HomeScreen extends StatelessWidget {
           elevation: 4,
           child: Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               gradient: LinearGradient(
@@ -181,6 +143,7 @@ class HomeScreen extends StatelessWidget {
                       width: 60,
                       height: 60,
                       borderRadius: BorderRadius.circular(12),
+                      imagePath: 'assets/images/share_box.jpg',
                     ),
                     const SizedBox(width: 16),
                     Expanded(
@@ -205,24 +168,49 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 12),
                 Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
+                  spacing: 6,
+                  runSpacing: 6,
                   children: [
                     _buildFeatureChip(context, 'Mixed Sandwiches'),
                     _buildFeatureChip(context, 'Crisps'),
                     _buildFeatureChip(context, 'Picky Bits'),
-                    _buildFeatureChip(context, 'Pork Pie & Quiche'),
                   ],
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 12),
                 Row(
                   children: [
                     _buildOptionChip(context, 'Traditional', true),
                     const SizedBox(width: 8),
                     _buildOptionChip(context, 'Vegetarian', false),
                   ],
+                ),
+                const SizedBox(height: 16),
+
+                // Share Box CTA
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // TODO: Navigate to share box selection
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: colorScheme.secondary,
+                      foregroundColor: colorScheme.onSecondary,
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: Text(
+                      'Order Share Box',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        color: colorScheme.onSecondary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -232,64 +220,91 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildBuffetOptionsSection(BuildContext context) {
+  Widget _buildBuffetOptionsGrid(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Buffet Options',
-          style: theme.textTheme.headlineLarge?.copyWith(
-            color: colorScheme.onSurface,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          'Available for 5 or more people',
-          style: theme.textTheme.titleMedium?.copyWith(
-            color: colorScheme.onSurface.withValues(alpha: 0.7),
-          ),
-        ),
-        const SizedBox(height: 16),
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: AppSpacing.screenPadding,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Buffet Options',
+              style: theme.textTheme.headlineLarge?.copyWith(
+                color: colorScheme.onSurface,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Available for 5 or more people',
+              style: theme.textTheme.titleMedium?.copyWith(
+                color: colorScheme.onSurface.withValues(alpha: 0.7),
+              ),
+            ),
+            const SizedBox(height: 16),
 
-        // Classic Buffet
-        _buildBuffetCard(
-          context,
-          title: 'Classic Buffet',
-          price: '£9.90 per head',
-          description: 'Traditional selection with all the essentials',
-          features: ['5 Sandwich varieties', 'Selection of Quiche', 'Cocktail Sausages', 'Assortment of Cakes'],
-          color: colorScheme.primary,
-          imagePlaceholder: 'classic_buffet.jpg',
-        ),
-        const SizedBox(height: 16),
+            // Responsive Grid
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final crossAxisCount = constraints.maxWidth >= 600 ? 2 : 1;
+                final buffetOptions = [
+                  {
+                    'title': 'Classic Buffet',
+                    'price': '£9.90 per head',
+                    'description': 'Traditional selection with all the essentials',
+                    'features': ['5 Sandwich varieties', 'Selection of Quiche', 'Cocktail Sausages', 'Assortment of Cakes'],
+                    'color': colorScheme.primary,
+                    'imagePath': 'assets/images/classic.jpg',
+                  },
+                  {
+                    'title': 'Enhanced Buffet',
+                    'price': '£10.90 per head',
+                    'description': 'Everything in Classic plus premium additions',
+                    'features': ['All Classic items', 'Coronation Chicken', 'Vegetable sticks & Dips', 'Cheese & Pineapple'],
+                    'color': colorScheme.secondary,
+                    'imagePath': 'assets/images/enhanced.jpg',
+                  },
+                  {
+                    'title': 'Deluxe Buffet',
+                    'price': '£13.90 per head',
+                    'description': 'Premium selection with gourmet options',
+                    'features': ['7 Sandwich varieties', 'Wraps included', 'Greek Salad', 'Tomato & Mozzarella Skewers'],
+                    'color': const Color(0xFF6A1B9A),
+                    'imagePath': 'assets/images/deluxe.jpg',
+                  },
+                ];
 
-        // Enhanced Buffet
-        _buildBuffetCard(
-          context,
-          title: 'Enhanced Buffet',
-          price: '£10.90 per head',
-          description: 'Everything in Classic plus premium additions',
-          features: ['All Classic items', 'Coronation Chicken', 'Vegetable sticks & Dips', 'Cheese & Pineapple'],
-          color: colorScheme.secondary,
-          imagePlaceholder: 'enhanced_buffet.jpg',
+                return GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: crossAxisCount,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                    childAspectRatio: crossAxisCount == 2 ? 0.6 : 0.8,
+                  ),
+                  itemCount: buffetOptions.length,
+                  itemBuilder: (context, index) {
+                    final option = buffetOptions[index];
+                    return _buildBuffetCard(
+                      context,
+                      title: option['title'] as String,
+                      price: option['price'] as String,
+                      description: option['description'] as String,
+                      features: option['features'] as List<String>,
+                      color: option['color'] as Color,
+                      imagePath: option['imagePath'] as String,
+                    );
+                  },
+                );
+              },
+            ),
+          ],
         ),
-        const SizedBox(height: 16),
-
-        // Deluxe Buffet
-        _buildBuffetCard(
-          context,
-          title: 'Deluxe Buffet',
-          price: '£13.90 per head',
-          description: 'Premium selection with gourmet options',
-          features: ['7 Sandwich varieties', 'Wraps included', 'Greek Salad', 'Tomato & Mozzarella Skewers'],
-          color: const Color(0xFF6A1B9A),
-          imagePlaceholder: 'deluxe_buffet.jpg',
-        ),
-      ],
+      ),
     );
   }
 
@@ -337,34 +352,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCallToAction(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
 
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () {
-          // TODO: Navigate to buffet selection
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: colorScheme.primary,
-          foregroundColor: colorScheme.onPrimary,
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-        child: Text(
-          'View All Buffets',
-          style: theme.textTheme.titleLarge?.copyWith(
-            color: colorScheme.onPrimary,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
-  }
 
   Widget _buildBottomNavigation(BuildContext context) {
     final theme = Theme.of(context);
@@ -406,10 +394,16 @@ class HomeScreen extends StatelessWidget {
         label,
         style: theme.textTheme.bodySmall?.copyWith(
           color: colorScheme.onSecondaryContainer,
+          fontSize: 11,
         ),
       ),
       backgroundColor: colorScheme.secondaryContainer,
       side: BorderSide.none,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
   }
 
@@ -417,18 +411,28 @@ class HomeScreen extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    return FilterChip(
-      label: Text(label),
-      selected: isSelected,
-      onSelected: (selected) {
-        // TODO: Handle selection
-      },
-      backgroundColor: colorScheme.surface,
-      selectedColor: colorScheme.primary.withValues(alpha: 0.2),
-      checkmarkColor: colorScheme.primary,
-      labelStyle: theme.textTheme.bodyMedium?.copyWith(
-        color: isSelected ? colorScheme.primary : colorScheme.onSurface,
-        fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+    return Container(
+      constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
+      child: FilterChip(
+        label: Text(label),
+        selected: isSelected,
+        onSelected: (selected) {
+          // TODO: Handle selection
+        },
+        backgroundColor: isSelected ? colorScheme.primary : colorScheme.surface,
+        selectedColor: colorScheme.primary,
+        checkmarkColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+          side: BorderSide(
+            color: isSelected ? colorScheme.primary : colorScheme.outline,
+          ),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        labelStyle: theme.textTheme.bodyMedium?.copyWith(
+          color: isSelected ? Colors.white : colorScheme.onSurface,
+          fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+        ),
       ),
     );
   }
@@ -451,10 +455,13 @@ class HomeScreen extends StatelessWidget {
               color: colorScheme.primary.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              icon,
-              color: colorScheme.primary,
-              size: 24,
+            child: Tooltip(
+              message: title,
+              child: Icon(
+                icon,
+                color: colorScheme.primary,
+                size: 24,
+              ),
             ),
           ),
           const SizedBox(height: 8),
@@ -484,7 +491,7 @@ class HomeScreen extends StatelessWidget {
     required String description,
     required List<String> features,
     required Color color,
-    required String imagePlaceholder,
+    required String imagePath,
   }) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
@@ -492,7 +499,7 @@ class HomeScreen extends StatelessWidget {
     return Card(
       elevation: 3,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           gradient: LinearGradient(
@@ -507,62 +514,207 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            // Large buffet image at the top
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: BuffetImagePlaceholder(
+                buffetType: title.split(' ')[0].toLowerCase(),
+                width: double.infinity,
+                height: 120,
+                borderRadius: BorderRadius.circular(12),
+                imagePath: imagePath,
+              ),
+            ),
+            const SizedBox(height: 12),
+
+            // Content below image
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Buffet image placeholder
-                BuffetImagePlaceholder(
-                  buffetType: title.split(' ')[0], // Extract 'Classic', 'Enhanced', 'Deluxe'
-                  width: 80,
-                  height: 80,
-                  borderRadius: BorderRadius.circular(8),
-                  // imagePath: imagePlaceholder, // Uncomment when real images are available
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
                         title,
-                        style: theme.textTheme.headlineSmall?.copyWith(
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          color: color,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: color.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: color.withValues(alpha: 0.3)),
+                      ),
+                      child: Text(
+                        price,
+                        style: theme.textTheme.titleSmall?.copyWith(
                           color: color,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Text(
-                        price,
-                        style: theme.textTheme.titleLarge?.copyWith(
-                          color: colorScheme.onSurface,
-                          fontWeight: FontWeight.w600,
-                        ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  description,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: colorScheme.onSurface.withValues(alpha: 0.8),
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 8),
+                Wrap(
+                  spacing: 4,
+                  runSpacing: 4,
+                  children: features.take(3).map((feature) => _buildFeatureChip(context, feature)).toList(),
+                ),
+                const SizedBox(height: 12),
+
+                // Buffet CTA
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // TODO: Navigate to specific buffet selection
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: color,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      Text(
-                        description,
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.onSurface.withValues(alpha: 0.7),
-                        ),
+                    ),
+                    child: Text(
+                      'Order $title',
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 12),
-            Wrap(
-              spacing: 6,
-              runSpacing: 6,
-              children: features.map((feature) => Chip(
-                label: Text(
-                  feature,
-                  style: theme.textTheme.bodySmall,
-                ),
-                backgroundColor: color.withValues(alpha: 0.1),
-                side: BorderSide.none,
-              )).toList(),
-            ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _HeroCarouselWidget extends StatefulWidget {
+  @override
+  _HeroCarouselWidgetState createState() => _HeroCarouselWidgetState();
+}
+
+class _HeroCarouselWidgetState extends State<_HeroCarouselWidget> {
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Column(
+      children: [
+        SizedBox(
+          height: 200,
+          child: PageView.builder(
+            controller: _pageController,
+            itemCount: 3,
+            onPageChanged: (index) {
+              setState(() {
+                _currentPage = index;
+              });
+            },
+            itemBuilder: (context, index) {
+              final heroImages = [
+                'assets/images/hero1.jpg',
+                'assets/images/hero2.jpg',
+                'assets/images/hero3.jpg',
+              ];
+
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: BuffetHeroImage(
+                    buffetType: 'hero',
+                    width: double.infinity,
+                    height: 200,
+                    imagePath: heroImages[index],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        const SizedBox(height: 12),
+
+        // Page indicators
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(3, (index) {
+            return GestureDetector(
+              onTap: () {
+                _pageController.animateToPage(
+                  index,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              },
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 4),
+                width: _currentPage == index ? 12 : 8,
+                height: 8,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: _currentPage == index
+                    ? colorScheme.primary
+                    : colorScheme.primary.withValues(alpha: 0.3),
+                ),
+              ),
+            );
+          }),
+        ),
+        const SizedBox(height: 8),
+
+        // Scroll hint with icon
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.swipe,
+              size: 16,
+              color: colorScheme.onSurface.withValues(alpha: 0.6),
+            ),
+            const SizedBox(width: 4),
+            Text(
+              'Swipe to see more buffet photos',
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: colorScheme.onSurface.withValues(alpha: 0.6),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

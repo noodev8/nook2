@@ -1,0 +1,15 @@
+# Image Placeholders for The Nook of Welshpool
+
+This directory contains placeholder files for the buffet images.
+In a real implementation, these would be actual JPG/PNG image files.
+
+Required image files:
+- hero1.jpg (Hero carousel image 1)
+- hero2.jpg (Hero carousel image 2) 
+- hero3.jpg (Hero carousel image 3)
+- share_box.jpg (Share box image)
+- classic.jpg (Classic buffet image)
+- enhanced.jpg (Enhanced buffet image)
+- deluxe.jpg (Deluxe buffet image)
+
+All images should be optimized for mobile and follow the guidelines in README.md
